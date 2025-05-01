@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>My To-Do List</h1>
+    <ul class="list-group">
+        {% for task in tasks %}
+            <li class="list-group-item">{{ task }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
