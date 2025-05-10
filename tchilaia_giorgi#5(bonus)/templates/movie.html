@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ movie.title }} ({{ movie.year }})</h2>
+    <p><strong>რეჟისორი:</strong> {{ movie.director }}</p>
+    <p>{{ movie.description }}</p>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">დაბრუნება</a>
+</div>
+{% endblock %}

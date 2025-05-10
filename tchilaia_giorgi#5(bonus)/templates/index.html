@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+<html lang="en">
+<meta charset="UTF-8">
+{% block content %}
+<div class="container mt-4">
+    <h2>ფილმების სია</h2>
+    <div class="list-group">
+        {% for movie in movies %}
+        <a href="{{ url_for('movie_detail', movie_id=movie.id) }}" class="list-group-item list-group-item-action">
+            <strong>{{ movie.title }}</strong> - {{ movie.year }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
