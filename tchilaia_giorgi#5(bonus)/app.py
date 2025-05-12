@@ -28,7 +28,7 @@ def movie_detail(movie_id):
     movie = next((m for m in movies if m['id'] == movie_id), None)
     if movie:
         return render_template('movie.html', movie=movie)
-    return "Movie not found", 404
+    return "Movie not found",
 
 
 @app.route('/login', methods=['GET', 'POST'])
