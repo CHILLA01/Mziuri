@@ -72,3 +72,64 @@ print(result)
 # თუ არ ვიცით რამდენი არგუმენტის გადაცემა გვსურს მაშინ ვიყენებთ args
 
 
+-- 1. დაბეჭდე ყველა წიგნი, რომლის ავტორია Rowling და ფასი მეტია 20-ზე.
+SELECT * FROM books
+WHERE author = 'Rowling' AND price > 20;
+
+-- 2. დაბეჭდე ყველა მომხმარებელი, რომლის ბალანსი ნაკლებია 40 ლარზე.
+SELECT * FROM users
+WHERE balance < 40;
+
+-- 3. დაბეჭდე ყველა წიგნი, რომლის ფასი არ აღემატება 20 ლარს.
+SELECT * FROM books
+WHERE price <= 20;
+
+-- 4. დაბეჭდე ყველა მომხმარებელი, რომელმაც რაიმე წიგნი იყიდა.
+SELECT DISTINCT u.*
+FROM users u
+JOIN purchase p ON u.id = p.user_id;
+
+-- 5. დაბეჭდე ყველა მომხმარებელი, რომლებმაც იყიდეს წიგნები 100 ლარზე მეტი თანხით ჯამში.
+SELECT u.username, SUM(b.price) AS total_spent
+FROM users u
+JOIN purchase p ON u.id = p.user_id
+JOIN books b ON p.book_id = b.id
+GROUP BY u.id
+HAVING total_spent > 100;
+
+-- 6. დაბეჭდე ყველა მომხმარებელი, რომელმაც იყიდა წიგნები 2018 წელს.
+SELECT DISTINCT u.*
+FROM users u
+JOIN purchase p ON u.id = p.user_id
+WHERE strftime('%Y', p.purchase_date) = '2018';
+
+-- 7. დაბეჭდე ყველა მომხმარებელი და წიგნი, რომელიც მათ იყიდეს 2018 წელს.
+SELECT u.username, b.title, p.purchase_date
+FROM users u
+JOIN purchase p ON u.id = p.user_id
+JOIN books b ON p.book_id = b.id
+WHERE strftime('%Y', p.purchase_date) = '2018';
+
+-- 8. დაბეჭდე ყველა მომხმარებელი და წიგნი, რომელიც მათ იყიდეს, თუნდაც მხოლოდ ერთხელ.
+SELECT DISTINCT u.username, b.title
+FROM users u
+JOIN purchase p ON u.id = p.user_id
+JOIN books b ON p.book_id = b.id;
+
+-- 9. დაბეჭდე ყველა მომხმარებელი და მათი ბალანსი, რომლებიც არ იყენებენ არცერთ წიგნს.
+SELECT u.*
+FROM users u
+LEFT JOIN purchase p ON u.id = p.user_id
+WHERE p.id IS NULL;
+
+-- 10. დაბეჭდე იმ წიგნების დასახელება, რომლებიც მხოლოდ ერთი მომხმარებლის მიერ იქნა შეძენილი.
+SELECT b.title
+FROM books b
+JOIN purchase p ON b.id = p.book_id
+GROUP BY b.id
+HAVING COUNT(DISTINCT p.user_id) = 1;
+
+-- 11. დაბეჭდე ყველა წიგნი, რომლის ავტორია William Shakespeare.
+SELECT * FROM books
+WHERE author = 'William Shakespeare';
+

@@ -1,10 +1,10 @@
 #1
 dictionary = {0: 10, 1: 20}
 dictionary[2] = 30
+del dictionary[1]
 dictionary.update({3: 40})
 print("Updated Dictionary:", dictionary)
 
-del dictionary[1]
 print("After Deletion:", dictionary)
 
 #2
